@@ -1,4 +1,6 @@
-Flask
-Flask-Session
-Werkzeug
+flask
+flask-session
 cs50
+gunicorn
+werkzeug
+python-dotenv
