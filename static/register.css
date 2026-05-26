@@ -1,0 +1,111 @@
+:root {
+    /*Main colors*/
+    --main-blue: #7DA4E3;
+    --main-orange: #FF5436;
+    --main-green: #A2A884;
+    --main-darkBlue: #2C3F50;
+
+    /*Fonts*/
+    --font-primary: "Lustria", serif;
+    --font-secondary: "Lato", sans-serif;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-size: 16px;
+}
+
+.body__login, .login {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-darkBlue);
+}
+
+.login__wrapper {
+    min-width: 1000px;
+    max-width: 1200px;
+    min-height: 700px;
+    max-height: 900px;
+    width: 100%;
+    display: grid;
+    grid-template-rows:1fr;
+    grid-template-columns: 1fr 1fr;
+    box-shadow: 0 0 10px 5px #15232E;
+    border-radius: 20px;
+    overflow:hidden;
+
+}
+.login__ul {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 20px;
+}
+.login__ul li a{
+     font-family: var(--font-secondary);
+    color: var(--main-orange);
+    cursor: pointer;
+}
+.login__ul li a:hover{
+    text-decoration: underline;
+}
+
+.login__column-1 {
+    background-image: url("/static/login.jpg");
+    background-position: bottom right;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.login__column-2 {
+    background-color: #E0E6D5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login__column-2 input {
+    width: 400px;
+    max-width: 500px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #E0E6D5;
+    border-bottom: 1px solid var(--main-green);
+    margin: 0 auto 40px auto;
+    display: block;
+    font-family: var(--font-secondary);
+    font-size: 18px;
+
+
+}
+.login__title {
+font-family: var(--font-primary);
+font-size: 25px;
+margin-bottom: 80px;
+color: var(--main-darkBlue);
+}
+
+input[type="submit"]{
+    border-bottom: none;
+    cursor: pointer;
+    width: 200px;
+    max-width: 80%;
+    border-radius: 20px;
+    display: block;
+    margin: 0 auto;
+    font-family: var(--font-secondary);
+    color: var(--main-orange);
+    background-color: var(--main-darkBlue)
+}
+
+input[type="submit"]:hover {
+    color: var(--main-darkBlue);
+    background-color: var(--main-orange)
+}

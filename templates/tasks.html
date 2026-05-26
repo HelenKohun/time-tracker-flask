@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+
+{% block title %}Time Tracker | Tasks{% endblock %}
+
+
+
+{% block main%}
+<h2 class="tasks__title">Add new task</h2>
+        <form class="tasks__form" action="/tasks" method="post">
+            <label for="name">Task name:</label>
+            <input type="text" autofocus name="name" placeholder="Task"required>
+
+            <label for="type">Type:</label>
+            <input type="text" name="type" placeholder="Sport/Study/Work" required>
+
+            <label for="planned_time">Time allocated for this task:</label>
+            <input type="number" name="planned_time" min="0.1" step="0.1" placeholder="Hours" required>
+
+            <button type="submit">Add</button>
+        </form>
+
+{% if tasks_list %}
+        <table class="tasks__table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Type</th>
+                    <th>Planned time</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+            </thead>
+            <tbody>
+                {% for task in tasks_list%}
+                <tr>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.type }}</td>
+                    <td>{{ task.planned_time }}</td>
+                    <td>
+                        {% if task.completed %}
+                        <span class="status status-done">Done</span>
+                        {% else %}
+                            <button onclick="openModal({{ task.id }})" class="btn-complete">Mark as done</button>
+                        {% endif %}
+                        <a href="{{ url_for('delete_task', task_id=task.id) }}" class="btn-delete">Delete</a>
+                    </td>
+                </tr>
+                {% endfor%}
+            </tbody>
+        </table>
+{% endif %}
+<div id="completeModal" class="modal hidden">
+    <div class="modal__content">
+        <h3>Complete task</h3>
+
+        <form class="modal__form" id="completeForm" method="post">
+            <label>Satisfaction</label>
+            <input type="number" placeholder="⭐ 1-5" name="satisfaction" min="1" max="5" required>
+
+            <label>Time spent</label>
+            <input type="number" placeholder="Hours" name="time_spent" step="0.1" required>
+
+            <div class="modal__actions">
+                <button type="submit" class="btn-complete">Save</button>
+                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+{% block scripts %}
+    <script>
+       document.addEventListener("DOMContentLoaded", () => {
+        const rows = document.querySelectorAll(".tasks_table tbody tr");
+        rows.forEach((row, index) => {
+            row.style.animationDelay = `${0.05 * index}s`;
+            row.classList.add("tableTask");
+        });
+       });
+
+
+       function openModal(taskId) {
+        const modal = document.getElementById("completeModal");
+        const form = document.getElementById("completeForm");
+
+        form.action = `/tasks/complete/${taskId}`;
+        modal.classList.remove("hidden");
+       }
+
+
+       function closeModal() {
+        document.getElementById("completeModal").classList.add("hidden");
+       }
+    </script>
+{% endblock %}

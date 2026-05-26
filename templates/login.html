@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Time tracker | Log in{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/login.css">
+{% endblock %}
+
+
+{% block main%}
+<div class="login">
+    <div class="login__wrapper">
+        <section class=" login__column-1">
+            <ul class="login__ul">
+                <li><a href="{{ url_for('login') }}">Log In</a></li>
+                <li><a href="{{ url_for('register') }}">Sign Up</a></li>
+            </ul>
+        </section>
+        <section class=" login__column-2">
+                <h2 class="login__title">Log In</h2>
+                <form action="{{ url_for('login') }}" method="post">
+                    <input type="text" name="user_login" autocomplete="off" autofocus placeholder="Username" required>
+                    <input type="password" name="user_password" autocomplete="off" placeholder="Password" required>
+                    <input id="login__submit "type="submit" value="Log In">
+                </form>
+        </section>
+    </div>
+</div>
+
+{% endblock %}

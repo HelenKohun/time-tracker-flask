@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block title %}Time tracker | Main{% endblock %}
+
+
+
+{% block main%}
+<h2 class="index__title">Task progress</h2>
+<canvas id="progressChart"></canvas>
+
+<h2 class="index__title-2">Planned Tasks<h2>
+    {% if plans %}
+    <table class="tasks__table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Type</th>
+                    <th>Hours per Day</th>
+                    <th>Estimated Days</th>
+                    <th>Start -> End</th>
+                </tr>
+                </thead>
+            </thead>
+            <tbody>
+                {% for plan in plans %}
+                <tr>
+                    <td>{{ plan.name }}</td>
+                    <td>{{ plan.type }}</td>
+                    <td>{{ plan.hours_per_day }}</td>
+                    <td>{{ plan.estimated_days }}</td>
+                    <td>{{ plan.created_at }} -> {{ plan.end_date }}</td>
+                </tr>
+                {% endfor%}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="index__noPlanned">No planned tasks yet</p>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script>
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            const progressChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{ dates|safe }},
+                    datasets: [{
+                        label: 'Satisfaction scores',
+                        data: {{ scores|safe }},
+                        backgroundColor: 'rgba(125, 164, 227, 0.5)'
+                    },{
+                        label: 'Time Spent (hours)',
+                        data: {{ time_spent|safe}},
+                        backgroundColor: 'rgba(255, 84, 54, 0.5)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.parsed.y}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true}
+                    }
+                }
+            });
+        </script>
+{% endblock %}

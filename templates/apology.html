@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}Time Tracker | Error{% endblock %}
+
+{% block main %}
+<div class="apology">
+    <h2 class="apology__title">Oops!</h2>
+    <p class="apology__message">{{ message }}</p>
+    <a href="javascript:history.back()" class="apology__back">Go Back</a>
+</div>
+{% endblock %}

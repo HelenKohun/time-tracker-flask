@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+
+{% block title %}Time Tracker | Planner{% endblock %}
+
+{% block main %}
+<h2 class="planner__title">Plan your tasks</h2>
+<h3 class="planner__subtitle">For long-term tasks</h3>
+        <form class="planner__form" action="{{ url_for('planner') }}" method="post">
+            <label for="task_id">Choose the task:</label>
+            <select name="task_id">
+                {% for task in tasks %}
+                    <option value="{{ task.id }}">{{ task.name }} ({{ task.planned_time }} h)</option>
+                {% endfor %}
+            </select>
+
+            <label for="hours_per_day">How many hours per day are you going to spend on this task:</label>
+            <input type="number" name="hours_per_day" min="0.1" step="0.1" required>
+
+            <button type="submit">Calculate the plan</button>
+        </form>
+
+        {% if plan %}
+            <h3 class="planner__title-plan">Task execution plan</h3>
+                <table class="planner__table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Hours per day</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                        {% for day, hours in plan.items() %}
+                         <tr>
+                            <td>{{ day }}</td>
+                            <td>{{ hours }}</td>
+                         </tr>
+                        {% endfor %}
+                    </tbody>
+
+                    </table>
+        {% endif %}
+{% endblock %}
