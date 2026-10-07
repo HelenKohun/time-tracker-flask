@@ -44,6 +44,8 @@ By allowing users to vizualize their task completion patterns and plan thier wor
 
 ## Project Structure
 
+```text
+
 /time-tracker
 
 │
@@ -68,6 +70,8 @@ By allowing users to vizualize their task completion patterns and plan thier wor
 |- requirements.txt # Python dependencies required to run the project
 |- time_tracker.db # SQLite database storing all user, task, planner, and progress data
 |- README.md # Project documentation
+
+```
 
 ## How it works
 
